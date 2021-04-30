@@ -22,12 +22,12 @@ public class DataAccess {
 	private Guests guests;
 	private Rooms rooms;
 	private Reservations reservations;
+	private ReservationView reservationsView;
 	private DataAccess dataAccess;
 	public static String connectionString;
 	private Connection dbConnection = null;
 
 /////////////////////////////////// Utility methods
-
 	public void init() {
 		this.setConnectionString("jdbc:sqlite:sqlitedb/HotelRerservation.sqlite");
 
@@ -58,7 +58,7 @@ public class DataAccess {
 	 * @text connString the connection string for the SQLite Database.
 	 * 
 	 */
-	protected Connection connect() {
+	protected static Connection connect() {
 
 		Connection returnConnection = null;
 
@@ -90,11 +90,8 @@ public class DataAccess {
 		}
 		return true;
 	}
-
 /////////////////////////////////// End utility methods
-
 /////////////////////////////////// Reservations methods
-
 	public static boolean insertReservationData(Reservations r, String roomID) {
 		String insertString;
 		Reservations insertReservation = r;
@@ -130,17 +127,50 @@ public class DataAccess {
 		return true;
 	}
 
-	public static Set<Reservations> getGuestsReservations(Guests findGuest) {
+public static List<Reservations> selectReservationsData() {
+		List<Reservations> roomList = new ArrayList();
+		String sqlQueryString = "SELECT RoomID, RoomNumber, BasePrice, RoomType FROM Room";
 
-		Set<Reservations> returnReservationsSet = new HashSet<Reservations>();
-		return returnReservationsSet;
+		ResultSet resultSet = null;
+		Statement statement = null;
+
+		try {
+			this.dbConnection = DriverManager.getConnection(DataAccess.connectionString);
+
+			statement = this.dbConnection.createStatement();
+			resultSet = statement.executeQuery(sqlQueryString);
+
+			while (resultSet.next()) {
+
+				// new instance of guest and populate it from the Database
+				Rooms resultRoom = new Rooms();
+				resultRoom.setRoomID(Integer.parseInt(resultSet.getString("RoomID")));
+				resultRoom.setRoomNum(resultSet.getString("RoomNumber"));
+				resultRoom.setRoom_type(resultSet.getString("RoomType"));
+				resultRoom.setBasePrice(Double.parseDouble(resultSet.getString("BasePrice")));
+
+				// add that to the Set reternGuestsSet
+				roomList.add(resultRoom);
+
+				// this.dbConnection.close();
+			}
+
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
+			System.err.println(ex.fillInStackTrace());
+		}
+
+		return roomList;
 	}
-/////////////////////////////////// End Reservations methods
 
+		//Set<Reservations> returnReservationsSet = new HashSet<Reservations>();
+		//return returnReservationsSet;
+	
+/////////////////////////////////// End Reservations methods
 /////////////////////////////////// Guests related methods	
-	public static int insertGuestData(Guests g) {
+	public static int insertGuestData(Guests addGuest) {
 		String insertString = "";
-		Guests insertGuest = g;
+		Guests insertGuest = addGuest;
 		int returnGuestID = 0;
 
 		insertString = "INSERT INTO [dbo].[Guest]( [FirstName] , [LastName], [Email] + ) VALUES( "
@@ -148,27 +178,28 @@ public class DataAccess {
 
 		return returnGuestID;
 	}
-
-	public static boolean updateGuestData() {
+	
+	public static boolean updateGuestData(int guestID) {
 		return true;
 	}
 
-	public static boolean deleteGuestData() {
+	public static boolean deleteGuestData(int guestID) {
 		
 		return true;
 		
 	}
 
-	public static Guests selectGuestsData() {
-		Guests g = new Guests();
+	public static List<Guests> selectGuestsData() {
+		List<Guests> g = new ArrayList();
 		return g;
 	}
 
-	public Set<Guests> selectGuests2() {
+	//ignore this
+	public List<Guests> selectGuests2() {
 
 		ResultSet resultSet = null;
 		Statement statement = null;
-		Set<Guests> reternGuestsSet = new HashSet<Guests>();
+		List<Guests> reternGuestsSet = new HashSet<Guests>();
 
 		try {
 			this.dbConnection = DriverManager.getConnection(DataAccess.connectionString);
@@ -201,9 +232,11 @@ public class DataAccess {
 		return reternGuestsSet;
 	}
 
-	public Set<Guests> selectGuestsData(int upperlimit) {
-
-		Set<Guests> returnGuestsSet = new HashSet<Guests>();
+	public List<Guests> selectGuestsData(int upperlimit) {
+		List<Guests> returnGuestsSet = new ArrayList<Guests>();
+		DataAccess.connect();
+		
+		
 
 		return returnGuestsSet;
 	}
@@ -276,9 +309,7 @@ public class DataAccess {
 		return isSuccess;
 
 	}
-
 //////////////////////////////// End Guests related methods
-
 ////////////////////////////////Rooms related methods	
 	public static Rooms selectRoomData() {
 		Rooms r = new Rooms();

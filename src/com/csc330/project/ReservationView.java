@@ -86,50 +86,12 @@ public class ReservationView {
 		int choice = stepOneOption();
 	}
 
-	public int chooseGuestOptionView() {
-		String[] optionArray = new String[] { "Add Guest", "Edit / Delete Guest", "Search Guest" };
-
-		header();
-		System.out.println("\nChoose an option:");
-
-		for (int i = 0; i < optionArray.length; i++) {
-			System.out.println("[" + (i + 1) + "] " + optionArray[i]);
-		}
-		System.out.print("?");
-
-		int inputChoice = Integer.parseInt(this.keyboardInput.nextLine());
-
-		switch (inputChoice) {
-		case 0:
-			mainOptions();
-			break;
-		case 1:
-			addGuestChoice(null);
-			break;
-		case 2:
-			System.out.print("you pressed 2");
-
-			break;
-		case 3:
-			System.out.print("you pressed 3");
-			break;
-		default:
-			mainOptions();
-		}
-		return inputChoice;
-
-	}
 
 	public void entryPageView() {
 		int choice = stepOneOption();
 	}
-
-	public void addGuestView() {
-
-	}
-
-	public void roomInformationView() {
-
+	
+	public void roomsInformationView() {
 
 		ReservationView.clearScreen();
 		Rooms rooms = new Rooms();
@@ -169,16 +131,80 @@ public class ReservationView {
 		}
 
 	}
+	public Rooms getroomView(String roomNumber) {
 
-	public void ReservatioInformationView() {
-		
 	}
 	
-public void ReservationChoiceView() {
+	public void reservationsInformationView() {
+
+	}
+	public int addReservationView(Reservations addReservation) {
+
+	}
+	public boolean removeReservationView(int reservationID) {
+
+	}
+	public boolean editReservationView(int reservationID) {
+
+	}
+	public Reservations getReservationView(int reservationID) {
+
+	}
+	
+	public void guestsInformationView() {
+
+		String[] optionArray = new String[] { "Add Guest", "Edit / Delete Guest", "Search Guest" };
+
+		header();
+		System.out.println("\nChoose an option:");
+
+		for (int i = 0; i < optionArray.length; i++) {
+			System.out.println("[" + (i + 1) + "] " + optionArray[i]);
+		}
+		System.out.print("?");
+
+		int inputChoice = Integer.parseInt(this.keyboardInput.nextLine());
+
+		switch (inputChoice) {
+		case 0:
+			mainOptions();
+			break;
+		case 1:
+			addGuestChoice(null);
+			break;
+		case 2:
+			System.out.print("you pressed 2");
+
+			break;
+		case 3:
+			System.out.print("you pressed 3");
+			break;
+		default:
+			mainOptions();
+		}
 		
+
+	}
+	public int adddGuestView(Guests addGuest) {
+
+		return 1;
+	}
+	public boolean removeGuestView(int guestID) {
+
+	}
+	public boolean editGuestView(int guestID) {
+
+	}
+	public Guests getGuestView(int guestID) {
+
+	}
+	public List<Guests> getGuestsView() {
+
+		List<Guests> g = new ArrayList();
+		
+		reyurn g;
 	}
 
-	
 	public void allRoomsView() {
 
 		Rooms rooms = new Rooms();
