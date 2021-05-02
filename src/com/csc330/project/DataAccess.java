@@ -163,8 +163,6 @@ public static List<Reservations> selectReservationsData() {
 		return roomList;
 	}
 
-		//Set<Reservations> returnReservationsSet = new HashSet<Reservations>();
-		//return returnReservationsSet;
 	
 /////////////////////////////////// End Reservations methods
 /////////////////////////////////// Guests related methods	
@@ -172,9 +170,23 @@ public static List<Reservations> selectReservationsData() {
 		String insertString = "";
 		Guests insertGuest = addGuest;
 		int returnGuestID = 0;
+		
+		connect();
 
-		insertString = "INSERT INTO [dbo].[Guest]( [FirstName] , [LastName], [Email] + ) VALUES( "
-				+ insertGuest.getFirstName() + ", " + insertGuest.getLastName() + ", " + insertGuest.getEmail() + ")";
+		insertString = "INSERT INTO Guest (FirstName, LastName, Email, TelephoneNum, NumOfVisits, StreetAdd, Zipcode, City, State, Country)VALUES        ("
+				+ insertGuest.getFirstName() + ", "
+				+ insertGuest.getLastName() + ", "
+				+ insertGuest.getEmail() + ", "
+				+ insertGuest.getNumOfVisits() + ", "
+				+ insertGuest.getTelephoneNum() + ", "
+				+ insertGuest.getStreetAdd() + ", "
+				+ insertGuest.getZipCode() + ", "
+				+ insertGuest.getCity() + ", "
+				+ insertGuest.getState() + ", "
+				+ insertGuest.getCountry + ",)";
+		
+		statement = this.dbConnection.createStatement();
+		resultSet = statement.executeQuery(insertString);
 
 		return returnGuestID;
 	}
@@ -190,16 +202,21 @@ public static List<Reservations> selectReservationsData() {
 	}
 
 	public static List<Guests> selectGuestsData() {
-		List<Guests> g = new ArrayList();
-		return g;
+		List<Guests> returnGuestList = new ArrayList();
+		ResultSet resultSet = null;
+		Statement statement = null;
+		
+		connect();
+		
+		
+		
+		return returnGuestList;
 	}
-
-	//ignore this
 	public List<Guests> selectGuests2() {
 
 		ResultSet resultSet = null;
 		Statement statement = null;
-		List<Guests> reternGuestsSet = new HashSet<Guests>();
+		List<Guests> reternGuestsSet = new ArrayList<Guests>();
 
 		try {
 			this.dbConnection = DriverManager.getConnection(DataAccess.connectionString);
