@@ -118,13 +118,14 @@ public void setState(String state) {
 	this.state = state; 
 }
 
-public Guests addGuest(Guests g) {
+//currently working on this
+public boolean addGuest(Guests g) {
 	
 	Guests addGuest = g;
 	
-	addGuest = reservationView.addGuestChoice(g);
-	
-	return DataAccess.insertGuestData(addGuest);
+	//addGuest = reservationView.addGuestChoice(g);
+	DataAccess.insertGuestData(addGuest);
+	return true;
 	 
 }
 

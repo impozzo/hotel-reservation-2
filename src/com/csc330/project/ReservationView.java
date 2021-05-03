@@ -22,8 +22,8 @@ public class ReservationView {
 		guest = new Guests();
 
 	}
-
-	public  Guests addGuestChoice(Guests newGuest) {
+// currently working on
+	public  void addGuestChoice(Guests newGuest) {
 		
 		Guests addGuest;
 		
@@ -65,7 +65,11 @@ public class ReservationView {
 		//System.out.print("Has the guest stayed at the hotel before? If so, how many times: ");
 		//addGuest.setEmail(this.keyboardInput.nextLine());
 		
-		return addGuest;
+		if (guest.addGuest(addGuest)) // success!
+		{
+			System.out.print("\nNew Guest added!");
+		}
+		//return addGuest;
 	}
 
 	public void header() {
