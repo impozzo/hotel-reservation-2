@@ -8,12 +8,12 @@ public class Rooms {
 	private DataAccess dataAccess;
 	private ReservationView reservationView;
 	private List<Rooms> roomsList;
-	
+
 	private int RoomID;
 	private String RoomNum;
 	private double BasePrice;
 	private String room_type;
-	
+
 ///////////////////////////////// Getters Setters
 	/**
 	 * @return the roomID
@@ -71,38 +71,34 @@ public class Rooms {
 		this.room_type = room_type;
 	}
 ///////////////////////////////// End Getters Setters
-	
 
 	public Rooms() {
 		this.reservationView = new ReservationView();
 		this.dataAccess = new DataAccess();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Rooms [RoomID=" + RoomID + ", RoomNum=" + RoomNum + ", BasePrice=" + BasePrice + ", room_type="
 				+ room_type + "]";
 	}
 
-	public void getRoom(String roomNumber)
-	{
-		Rooms returnRoom  = new Rooms();
-		//roomsList = new List<Rooms>();
+	public void getRoom(String roomNumber) {
+		Rooms returnRoom = new Rooms();
+		// roomsList = new List<Rooms>();
 		// Do some stuff
-		
-		//return returnRoom;
+
+		// return returnRoom;
 	}
-	
-	public  List<Rooms> showAllRooms(/* List<Rooms> roomList */)
-	{
-		dataAccess.connect();
-		roomsList = dataAccess.selectRooms();
-		//reservationView.allRoomsView(roomsList);
-		
-		//Rooms returnRoom  = new Rooms();
-		// Do some stuff
-		
-		return roomsList;
-	}
+
+	/*
+	 * public List<Rooms> showAllRooms( List<Rooms> roomList ) {
+	 * dataAccess.connect(); roomsList = dataAccess.selectRooms();
+	 * //reservationView.allRoomsView(roomsList);
+	 * 
+	 * //Rooms returnRoom = new Rooms(); // Do some stuff
+	 * 
+	 * return roomsList; }
+	 */
 
 }

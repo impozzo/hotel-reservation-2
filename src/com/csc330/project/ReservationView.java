@@ -32,17 +32,37 @@ public class ReservationView {
 
 		System.out.print("Add new Guest's first name: ");
 		addGuest.setFirstName(this.keyboardInput.nextLine());
+		
 		System.out.print("Add new Guest's last name: ");
 		addGuest.setLastName(this.keyboardInput.nextLine());
+		
 		System.out.print("Add new Guest's email: ");
 		addGuest.setEmail(this.keyboardInput.nextLine());
+		
+		System.out.print("Add new Guest's cell phone number: ");
+		addGuest.setEmail(this.keyboardInput.nextLine());
+		
+		System.out.print("Add new Guest's street address: ");
+		addGuest.setEmail(this.keyboardInput.nextLine());
 
+		System.out.print("Add new Guest's zip code: ");
+		addGuest.setEmail(this.keyboardInput.nextLine());
+		
+		System.out.print("Add new Guest's city: ");
+		addGuest.setEmail(this.keyboardInput.nextLine());
+		
+		System.out.print("Add new Guest's state: ");
+		addGuest.setEmail(this.keyboardInput.nextLine());
+		
+		System.out.print("Has the guest stayed at the hotel before? If so, how many times: ");
+		addGuest.setEmail(this.keyboardInput.nextLine());
+		
 		return addGuest;
 	}
 
 	public void header() {
 		System.out.printf("\n------------- Welcome to Morrison Hotel -------------\n");
-		System.out.printf("      - 8021 Rothdell Trail - Los Angeles, CA 90046 -\n");
+		System.out.printf("      - 8021 Rothdell Trail - Los Angeles, CA 90046 -\n");	
 		System.out.printf("-----------------------------------------------------\n");
 		System.out.println("---------- Enter [0] to return to main menu anytrime. ---------\n");
 	}
@@ -66,13 +86,13 @@ public class ReservationView {
 			mainOptions();
 			break;
 		case 1:
-			chooseGuestOptionView();
+			chooseGuestOption();
 			break;
 		case 2:
-			roomInformationView();
+			roomInformation();
 			break;
 		case 3:
-			roomInformationView();
+			roomInformation();
 			break;
 		default:
 			mainOptions();
@@ -86,73 +106,7 @@ public class ReservationView {
 		int choice = stepOneOption();
 	}
 
-
-	public void entryPageView() {
-		int choice = stepOneOption();
-	}
-	
-	public void roomsInformationView() {
-
-		ReservationView.clearScreen();
-		Rooms rooms = new Rooms();
-
-		header();
-		System.out.println("\nRoom Information:\n");
-		String[] optionArray = new String[] { "View room", "View all roomst" };
-
-		header();
-		System.out.println("\nChoose an option:");
-
-		for (int i = 0; i < optionArray.length; i++) {
-			System.out.println("[" + (i + 1) + "] " + optionArray[i]);
-		}
-		System.out.print("?");
-
-		int inputChoice = Integer.parseInt(this.keyboardInput.nextLine());
-
-		switch (inputChoice) {
-		case 0:
-			entryPageView();
-			break;
-		case 1:
-
-			break;
-		case 2:
-			System.out.print("you pressed 2");
-			allRoomsView();
-			// Rooms r = new Rooms();
-
-			break;
-		case 3:
-			System.out.print("you pressed 3");
-			break;
-		default:
-			mainOptions();
-		}
-
-	}
-	public Rooms getroomView(String roomNumber) {
-
-	}
-	
-	public void reservationsInformationView() {
-
-	}
-	public int addReservationView(Reservations addReservation) {
-
-	}
-	public boolean removeReservationView(int reservationID) {
-
-	}
-	public boolean editReservationView(int reservationID) {
-
-	}
-	public Reservations getReservationView(int reservationID) {
-
-	}
-	
-	public void guestsInformationView() {
-
+	public int chooseGuestOption() {
 		String[] optionArray = new String[] { "Add Guest", "Edit / Delete Guest", "Search Guest" };
 
 		header();
@@ -174,7 +128,7 @@ public class ReservationView {
 			break;
 		case 2:
 			System.out.print("you pressed 2");
-
+			
 			break;
 		case 3:
 			System.out.print("you pressed 3");
@@ -182,44 +136,73 @@ public class ReservationView {
 		default:
 			mainOptions();
 		}
+		return inputChoice;
+
+	}
+
+	
+	public void entryPageView() {
+		int choice = stepOneOption();
+	}
+
+	
+	
+	public void roomInformation() {
 		
-
-	}
-	public int adddGuestView(Guests addGuest) {
-
-		return 1;
-	}
-	public boolean removeGuestView(int guestID) {
-
-	}
-	public boolean editGuestView(int guestID) {
-
-	}
-	public Guests getGuestView(int guestID) {
-
-	}
-	public List<Guests> getGuestsView() {
-
-		List<Guests> g = new ArrayList();
-		
-		reyurn g;
-	}
-
-	public void allRoomsView() {
-
+		ReservationView.clearScreen();
 		Rooms rooms = new Rooms();
+		
+		header();
+		System.out.println("\nRoom Information:\n");
+		String[] optionArray = new String[] { "View room", "View all roomst" };
 
-		List<Rooms> roomList = rooms.showAllRooms();
+		header();
+		System.out.println("\nChoose an option:");
 
-		for (Rooms room : roomList) {
-			System.out.println(room.toString());
+		for (int i = 0; i < optionArray.length; i++) {
+			System.out.println("[" + (i + 1) + "] " + optionArray[i]);
+		}
+		System.out.print("?");
+
+		int inputChoice = Integer.parseInt(this.keyboardInput.nextLine());
+
+		switch (inputChoice) {
+		case 0:
+			entryPageView();
+			break;
+		case 1:
+			
+			break;
+		case 2:
+			System.out.print("you pressed 2");
+			allRoomsView();
+			//Rooms r = new Rooms();
+			
+			break;
+		case 3:
+			System.out.print("you pressed 3");
+			break;
+		default:
+			mainOptions();
 		}
 
 	}
+	
+	
+	  public void allRoomsView() {
+	  
+	  Rooms rooms = new Rooms();
+	  
+//	  List<Rooms> roomList = rooms.showAllRooms();
+//	  
+//	  for (Rooms room : roomList) { System.out.println(room.toString()); }
+//	  
+	  }
+	 
+	
+	public static void clearScreen() {  
+	    System.out.print("\033[H\033[2J");  
+	    System.out.flush(); 
 
-	public static void clearScreen() {
-		System.out.print("\033[H\033[2J");
-		System.out.flush();
-
-	}
+}
 }

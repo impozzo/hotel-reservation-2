@@ -12,7 +12,7 @@ private int numOfVisits;
 private String telephoneNum; 
 
 private String streetAdd; 
-private int zipCode; 
+private String zipCode; 
 private String city; 
 private String state;
 private String country;
@@ -107,7 +107,7 @@ public void setVisits(int numOfVisits) {
 
 
 public String getAddress() {
-	return streetAdd + zipCode + city + state;  
+	return streetAdd;  
 }
 
 
@@ -116,7 +116,7 @@ public void setStreetAdd(String streetAdd) {
 }
 
 
-public void setZipCode(int zipCode) {
+public void setZipCode(String zipCode) {
 	this.zipCode = zipCode;
 }
 
@@ -224,7 +224,7 @@ public String getStreetAdd() {
 /**
  * @return the zipCode
  */
-public int getZipCode() {
+public String getZipCode() {
 	return zipCode;
 }
 
