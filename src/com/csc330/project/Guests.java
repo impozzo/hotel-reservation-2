@@ -16,14 +16,15 @@ private String zipCode;
 private String city; 
 private String state;
 private String country;
+
 private Guests guest;
 private ReservationView reservationView;
 private DataAccess dataAccess;
 
 public Guests() {
-	guest = new Guests();
-	reservationView = new ReservationView();
-	dataAccess = new DataAccess();
+	//guest = new Guests();
+	//reservationView = new ReservationView();
+	//dataAccess = new DataAccess();
 }
 
 
