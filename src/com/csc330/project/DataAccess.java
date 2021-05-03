@@ -167,7 +167,7 @@ public class DataAccess {
 	 */
 /////////////////////////////////// End Reservations methods
 /////////////////////////////////// Guests related methods	
-	public static int insertGuestData(Guests addGuest) {
+	public static Guests insertGuestData(Guests addGuest) {
 		ResultSet resultSet = null;
 		Statement statement = null;
 		String insertString = "";
@@ -186,11 +186,11 @@ public class DataAccess {
 			statement = dbConnection.createStatement();
 			int x = statement.executeUpdate(insertString);
 			System.out.print(x);
-			return returnGuestID;
+			return insertGuest;
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			System.err.println(e.fillInStackTrace());
-			return -1;
+			return null;
 		}
 
 	}
@@ -263,6 +263,30 @@ public class DataAccess {
 
 	}
 	
+	public static Guests selectGuestData(String emailOrLastName) throws SQLException {
+		Guests returnGuest = new Guests();
+		ResultSet resultSet = null;
+		Statement statement = null;
+		String returnString = "";
+		int guestId = -1;
+
+		try {
+			dbConnection = connect();
+
+		returnString = "SELECT * FROM Guest WHERE GuestID = " + guestId;
+			statement = dbConnection.createStatement();
+			resultSet = statement.executeQuery(returnString);
+			guestId = resultSet.getInt("GuestID");
+		}
+		catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println(e.fillInStackTrace());
+			System.exit(0);
+		}
+			return selectGuestData(guestId);
+		
+		
+	}
 
 	public static List<Guests> selectGuestsData() {
 		List<Guests> returnGuestList = new ArrayList();
@@ -323,53 +347,41 @@ public class DataAccess {
 		return returnGuest;
 	}
 
-	public static boolean insertGuestData() {
-		boolean isSuccess = false;
-		Statement statement = null;
-		String sqlStatement;
-		Scanner keyboard = new Scanner(System.in); // to get input
-		String firstName;
-		String lastName;
-		String email;
-
-		Connection conn = connect();
-
-		if (conn == null) // connection failed
-		{
-			System.out.println("connection to database failed.");
-			return isSuccess; // didn connect
-
-		} else {
-			System.out.println("Add a guest:");
-			System.out.print("Guests first name: ");
-			firstName = keyboard.nextLine();
-			System.out.print("Guests last name: ");
-			lastName = keyboard.nextLine();
-			System.out.print("Guests email address: ");
-			email = keyboard.nextLine();
-
-			sqlStatement = "INSERT INTO Guest(FirstName, LastName, Email) VALUES ('" + firstName + "', '" + lastName
-					+ "', '" + email + "')";
-
-			try {
-
-				statement = conn.createStatement();
-				int rows = statement.executeUpdate(sqlStatement);
-
-				isSuccess = true;
-				System.out.println(rows + " guest(s) was inserted");
-			}
-
-			// If error happens
-			catch (SQLException e) {
-				System.out.println("guest(s) insert failed");
-				System.out.println(e.getMessage());
-			}
-
-		}
-		return isSuccess;
-
-	}
+	/*
+	 * public static boolean insertGuestData() { boolean isSuccess = false;
+	 * Statement statement = null; String sqlStatement; Scanner keyboard = new
+	 * Scanner(System.in); // to get input String firstName; String lastName; String
+	 * email;
+	 * 
+	 * Connection conn = connect();
+	 * 
+	 * if (conn == null) // connection failed {
+	 * System.out.println("connection to database failed."); return isSuccess; //
+	 * didn connect
+	 * 
+	 * } else { System.out.println("Add a guest:");
+	 * System.out.print("Guests first name: "); firstName = keyboard.nextLine();
+	 * System.out.print("Guests last name: "); lastName = keyboard.nextLine();
+	 * System.out.print("Guests email address: "); email = keyboard.nextLine();
+	 * 
+	 * sqlStatement = "INSERT INTO Guest(FirstName, LastName, Email) VALUES ('" +
+	 * firstName + "', '" + lastName + "', '" + email + "')";
+	 * 
+	 * try {
+	 * 
+	 * statement = conn.createStatement(); int rows =
+	 * statement.executeUpdate(sqlStatement);
+	 * 
+	 * isSuccess = true; System.out.println(rows + " guest(s) was inserted"); }
+	 * 
+	 * // If error happens catch (SQLException e) {
+	 * System.out.println("guest(s) insert failed");
+	 * System.out.println(e.getMessage()); }
+	 * 
+	 * } return isSuccess;
+	 * 
+	 * }
+	 */
 
 //////////////////////////////// End Guests related methods
 ////////////////////////////////Rooms related methods	
@@ -419,16 +431,23 @@ public class DataAccess {
 
 		Scanner keyboardInput = new Scanner(System.in);
 		Reservations res = new Reservations();
-
-		System.out.println("-------------------------------------------------------");
-		System.out.println("-----------------Testing Area--------------------------");
-		System.out.println("-------------------------------------------------------");
-		System.out.println("???");
-		keyboardInput.nextLine();
+		Guests guest = new Guests();
 
 		/*
-		 * deleteGuestData(13); System.out.println("OK")
-		 */;
+		 * System.out.println("-------------------------------------------------------")
+		 * ;
+		 * System.out.println("-----------------Testing Area--------------------------"
+		 * );
+		 * System.out.println("-------------------------------------------------------")
+		 * ; System.out.println("???"); keyboardInput.nextLine();
+		 */
+
+		guest = selectGuestData("Cras@aultricies.net");
+		System.out.println(guest.toString());
+		
+		  //deleteGuestData("Cras@aultricies.net"); 
+		  System.out.println("OK")
+		 ;
 		/*
 		 * res.setGuestId(1); res.setDaysStay(5);
 		 * 

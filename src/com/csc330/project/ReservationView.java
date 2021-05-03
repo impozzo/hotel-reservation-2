@@ -23,12 +23,20 @@ public class ReservationView {
 
 	}
 
-	public Guests addGuestChoice(Guests newGuest) {
+	public  Guests addGuestChoice(Guests newGuest) {
+		
 		Guests addGuest;
-		if (newGuest != null)
-			addGuest = newGuest;
-		else
-			addGuest = new Guests();
+		
+		
+		  if (newGuest != null)
+		  {
+			  addGuest = newGuest;
+		  }
+		  
+		  else 
+		  {
+			  addGuest = new Guests();
+		  }
 
 		System.out.print("Add new Guest's first name: ");
 		addGuest.setFirstName(this.keyboardInput.nextLine());
@@ -54,8 +62,8 @@ public class ReservationView {
 		System.out.print("Add new Guest's state: ");
 		addGuest.setEmail(this.keyboardInput.nextLine());
 		
-		System.out.print("Has the guest stayed at the hotel before? If so, how many times: ");
-		addGuest.setEmail(this.keyboardInput.nextLine());
+		//System.out.print("Has the guest stayed at the hotel before? If so, how many times: ");
+		//addGuest.setEmail(this.keyboardInput.nextLine());
 		
 		return addGuest;
 	}

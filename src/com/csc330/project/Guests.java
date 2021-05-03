@@ -16,10 +16,21 @@ private String zipCode;
 private String city; 
 private String state;
 private String country;
+private Guests guest;
+private ReservationView reservationView;
+private DataAccess dataAccess;
+
+public Guests() {
+	guest = new Guests();
+	reservationView = new ReservationView();
+	dataAccess = new DataAccess();
+}
+
 
 /**
  * @return the country
  */
+
 public String getCountry() {
 	return country;
 }
@@ -40,59 +51,42 @@ public void setCountry(String country) {
 	this.country = country;
 }
 
+public static void main(String[] args) {
+	// TODO Auto-generated method stub
 
-public Guests() {
-	// TODO Auto-generated constructor stub
 }
-
 
 public String getName() {
 	return firstName + lastName;  
 }
 
-
 public void setFirstName(String firstName) {
 	this.firstName = firstName; 
 }
-
 
 public void setLastName(String lastName) {
 	this.lastName = lastName; 
 }
 
-
-
-
 public String getEmail() {
 	return email; 
 }
-
 
 public void setEmail(String email) {
 	this.email = email; 
 }
 
-
-
-
 public String getCellPhone() {
 	return telephoneNum; 
 }
-
 
 public void setPhoneNum(String telephoneNum) {
 	this.telephoneNum = telephoneNum; 
 }
 
-
-
-
 public void setGuestId(int guestID) {
 	this.guestID = guestID; 
 }
-
-
-
 
 public int getVisits(int numOfVisits) {
 	return numOfVisits; 
@@ -103,18 +97,13 @@ public void setVisits(int numOfVisits) {
 	this.numOfVisits = numOfVisits; 
 }
 
-
-
-
 public String getAddress() {
 	return streetAdd;  
 }
 
-
 public void setStreetAdd(String streetAdd) {
 	this.streetAdd = streetAdd;
 }
-
 
 public void setZipCode(String zipCode) {
 	this.zipCode = zipCode;
@@ -124,12 +113,19 @@ public void setCity(String city) {
 	this.city = city;
 }
 
-
 public void setState(String state) {
 	this.state = state; 
 }
 
-
+public Guests addGuest(Guests g) {
+	
+	Guests addGuest = g;
+	
+	addGuest = reservationView.addGuestChoice(g);
+	
+	return DataAccess.insertGuestData(addGuest);
+	 
+}
 
 
 public void search(int guestID) {
@@ -147,15 +143,6 @@ public void update(int guestID) {
 	search(guestID); 
 	//update guest information in the system and return a confirmation message 
 }
-
-
-
-
-public static void main(String[] args) {
-	// TODO Auto-generated method stub
-
-}
-
 
 /**
  * @return the guestID
@@ -249,8 +236,9 @@ public String getState() {
 public String toString() {
 	return "Guests [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", guestID=" + guestID
 			+ ", numOfVisits=" + numOfVisits + ", telephoneNum=" + telephoneNum + ", streetAdd=" + streetAdd
-			+ ", zipCode=" + zipCode + ", city=" + city + ", state=" + state + "]";
+			+ ", zipCode=" + zipCode + ", city=" + city + ", state=" + state + ", country=" + country + "]";
 }
+
 
 
 }
