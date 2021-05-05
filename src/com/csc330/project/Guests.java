@@ -18,12 +18,12 @@ private String state;
 private String country;
 
 private Guests guest;
-private ReservationView reservationView;
+private ReservationsView reservationsView;
 private DataAccess dataAccess;
 
 public Guests() {
 	//guest = new Guests();
-	//reservationView = new ReservationView();
+	//reservationsView = new ReservationsView();
 	//dataAccess = new DataAccess();
 }
 
@@ -123,7 +123,7 @@ public boolean addGuest(Guests g) {
 	
 	Guests addGuest = g;
 	
-	//addGuest = reservationView.addGuestChoice(g);
+	//addGuest = reservationsView.addGuestChoice(g);
 	DataAccess.insertGuestData(addGuest);
 	return true;
 	 

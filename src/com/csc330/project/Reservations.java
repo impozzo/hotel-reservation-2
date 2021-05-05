@@ -164,9 +164,9 @@ public class Reservations extends Calendar {
 	public boolean addReservation() {
 		
 		
-		  Reservations addRes = new Reservations();
+		  ReservationsView addResView = new ReservationsView();
 		  
-		  addRes.addReservation(/*null, getCalendarType()*/);
+	//	  addResView.addReservation(/*null, getCalendarType()*/);
 		return true;
 		
 	}

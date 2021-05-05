@@ -4,25 +4,77 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ReservationView {
+public class ReservationsView {
 
 	private Scanner keyboardInput;
 	private static Guests guest;
-
+	private Reservations reservation;
+	private Rooms room;
+	
 	/**
 	 * @return the guest
 	 */
-	public Guests getGuest() {
-		return guest;
-	}
-
-	public ReservationView() {
+	/*
+	 * public Guests getGuest() { return guest; }
+	 */
+///////////////////////////// Main Methods
+	public ReservationsView() {
 
 		keyboardInput = new Scanner(System.in);
 		guest = new Guests();
 
 	}
+	
+	public int stepOneOption() {
+		String[] optionArray = new String[] { "Guest Information", "Reservation Information", "Room Information" };
 
+		header();
+		System.out.println("\nChoose an option:");
+
+		for (int i = 0; i < optionArray.length; i++) {
+			System.out.println("[" + (i + 1) + "] " + optionArray[i]);
+		}
+		System.out.print("?");
+
+		int inputChoice = Integer.parseInt(this.keyboardInput.nextLine());
+
+		switch (inputChoice) {
+		case 0:
+
+			mainOptions();
+			break;
+		case 1:
+			chooseGuestOption();
+			break;
+		case 2:
+			chooseReservationOption();
+			break;
+		case 3:
+			roomInformationView();
+			break;
+		default:
+			mainOptions();
+		}
+		return inputChoice;
+
+	}
+	
+	public void mainOptions() {
+		header();
+		int choice = stepOneOption();
+	}
+	
+	
+	public static void clearScreen() {  
+	    System.out.print("\033[H\033[2J");  
+	    System.out.flush(); 
+
+}
+	
+///////////////////////// End Main Methods
+	
+///////////////////////////// Guests Methods
+	
 	public  void addGuestChoice(Guests newGuest) {
 		
 		Guests addGuest;
@@ -72,7 +124,7 @@ public class ReservationView {
 		//return addGuest;
 	}
 
-	/// currently working on
+	
 	public void editGuest()
 	{
 		
@@ -147,51 +199,27 @@ public class ReservationView {
 		
 	}
 	
-	public void header() {
-		System.out.printf("\n------------- Welcome to Morrison Hotel -------------\n");
-		System.out.printf("      - 8021 Rothdell Trail - Los Angeles, CA 90046 -\n");	
-		System.out.printf("-----------------------------------------------------\n");
-		System.out.println("---------- Enter [0] to return to main menu anytrime. ---------\n");
-	}
+	/*
+	 * public int stepOneOption() { String[] optionArray = new String[] {
+	 * "Guest Information", "Reservation Information", "Room Information" };
+	 * 
+	 * header(); System.out.println("\nChoose an option:");
+	 * 
+	 * for (int i = 0; i < optionArray.length; i++) { System.out.println("[" + (i +
+	 * 1) + "] " + optionArray[i]); } System.out.print("?");
+	 * 
+	 * int inputChoice = Integer.parseInt(this.keyboardInput.nextLine());
+	 * 
+	 * switch (inputChoice) { case 0:
+	 * 
+	 * mainOptions(); break; case 1: chooseGuestOption(); break; case 2:
+	 * chooseReservationOption(); break; case 3: roomInformation(); break; default:
+	 * mainOptions(); } return inputChoice;
+	 * 
+	 * }
+	 */
 
-	public int stepOneOption() {
-		String[] optionArray = new String[] { "Guest Information", "Reservation Information", "Room Information" };
-
-		header();
-		System.out.println("\nChoose an option:");
-
-		for (int i = 0; i < optionArray.length; i++) {
-			System.out.println("[" + (i + 1) + "] " + optionArray[i]);
-		}
-		System.out.print("?");
-
-		int inputChoice = Integer.parseInt(this.keyboardInput.nextLine());
-
-		switch (inputChoice) {
-		case 0:
-
-			mainOptions();
-			break;
-		case 1:
-			chooseGuestOption();
-			break;
-		case 2:
-			roomInformation();
-			break;
-		case 3:
-			roomInformation();
-			break;
-		default:
-			mainOptions();
-		}
-		return inputChoice;
-
-	}
-
-	public void mainOptions() {
-		header();
-		int choice = stepOneOption();
-	}
+	
 
 	///////// Currently working on
 	public int chooseGuestOption() {
@@ -227,17 +255,65 @@ public class ReservationView {
 		return inputChoice;
 
 	}
-
-	
-	public void entryPageView() {
-		int choice = stepOneOption();
-	}
-
 	
 	
-	public void roomInformation() {
+///////////////////////// End Guests Methods
+	
+///////////////////////////// Reservations Methods
+	
+	// currently working
+	public int chooseReservationOption() {
 		
-		ReservationView.clearScreen();
+		String[] optionArray = new String[] { "Add Reservation", "Edit Reservation", "Delete Reservation", "Search Reservation" };
+
+		header();
+		System.out.println("\nChoose an option:");
+
+		for (int i = 0; i < optionArray.length; i++) {
+			System.out.println("[" + (i + 1) + "] " + optionArray[i]);
+		}
+		System.out.print("?");
+
+		int inputChoice = Integer.parseInt(this.keyboardInput.nextLine());
+
+		switch (inputChoice) {
+		case 0:
+			mainOptions();
+			break;
+		case 1:
+			addReservationView();
+			//addReservationChoice();
+			break;
+		case 2:
+			System.out.print("you pressed 2");
+			editGuest();
+			break;
+		case 3:
+			System.out.print("you pressed 3");
+			break;
+		default:
+			mainOptions();
+		}
+		
+		return 1;
+	}
+		
+	// currently working	
+	private void addReservationView() {
+		CompleteReservations addCompleteReservation = new CompleteReservations();
+		  
+//		  addResView.addReservation(/*null, getCalendarType()*/);
+		
+	}
+	
+///////////////////////// End Reservations Methods
+	
+	
+///////////////////////////// Rooms Methods
+	
+	public void roomInformationView() {
+		
+		ReservationsView.clearScreen();
 		Rooms rooms = new Rooms();
 		
 		header();
@@ -288,9 +364,29 @@ public class ReservationView {
 	  }
 	 
 	
-	public static void clearScreen() {  
-	    System.out.print("\033[H\033[2J");  
-	    System.out.flush(); 
+	
+///////////////////////// End Rooms Methods
+	
 
-}
+
+
+	public void entryPageView() {
+		int choice = stepOneOption();
+	}
+	
+
+	public void header() {
+		System.out.printf("\n------------- Welcome to Morrison Hotel -------------\n");
+		System.out.printf("      - 8021 Rothdell Trail - Los Angeles, CA 90046 -\n");	
+		System.out.printf("-----------------------------------------------------\n");
+		System.out.println("---------- Enter [0] to return to main menu anytrime. ---------\n");
+	}
+
+	
+	
+
+
+
+
+	
 }

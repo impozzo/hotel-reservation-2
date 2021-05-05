@@ -8,7 +8,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		ReservationView rv = new ReservationView();
+		ReservationsView rv = new ReservationsView();
 		rv.entryPageView();
 		
 

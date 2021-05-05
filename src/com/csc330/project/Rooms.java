@@ -6,7 +6,7 @@ public class Rooms {
 
 	private Rooms rooms;
 	private DataAccess dataAccess;
-	private ReservationView reservationView;
+	private ReservationsView reservationsView;
 	private List<Rooms> roomsList;
 
 	private int RoomID;
@@ -73,7 +73,7 @@ public class Rooms {
 ///////////////////////////////// End Getters Setters
 
 	public Rooms() {
-		this.reservationView = new ReservationView();
+		this.reservationsView = new ReservationsView();
 		this.dataAccess = new DataAccess();
 	}
 
@@ -94,7 +94,7 @@ public class Rooms {
 	/*
 	 * public List<Rooms> showAllRooms( List<Rooms> roomList ) {
 	 * dataAccess.connect(); roomsList = dataAccess.selectRooms();
-	 * //reservationView.allRoomsView(roomsList);
+	 * //reservationsView.allRoomsView(roomsList);
 	 * 
 	 * //Rooms returnRoom = new Rooms(); // Do some stuff
 	 * 
