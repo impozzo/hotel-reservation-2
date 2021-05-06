@@ -1,5 +1,7 @@
 package com.csc330.project;
 
+import java.util.Calendar;
+
 public class Main {
 
 	public Main() {
@@ -9,7 +11,10 @@ public class Main {
 	public static void main(String[] args) {
 		
 		ReservationsView rv = new ReservationsView();
-		rv.entryPageView();
+	rv.entryPageView();
+		
+		//Calendar c = new Calendar();
+		//System.out.println(c.toString());
 		
 
 	}

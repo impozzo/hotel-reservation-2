@@ -90,12 +90,15 @@ public class DataAccess {
 /////////////////////////////////// end CompleteReservations methods
 /////////////////////////////////// Reservations methods
 	public static int insertReservationData(Reservations r, int roomID, int guestId) {
+
 		ResultSet resultSet = null;
 		Statement statement = null;
 		int returnReservationID = 0;
 		String insertString;
 		Reservations insertReservation = r;
 		Rooms room;
+
+		// insert guest
 
 		insertString = "INSERT INTO Reservation (GuestID" + ", RoomID, DaysStay, StartDate,DateCreated, "
 				+ "PaidStatus, ReservationStatus, ConfirmStatus, TotalCost) VALUES(" + insertReservation.getGuestId()
@@ -107,8 +110,8 @@ public class DataAccess {
 		try {
 			connect();
 			statement = dbConnection.createStatement();
-			int x = statement.executeUpdate(insertString);
-			System.out.print(x);
+			returnReservationID = statement.executeUpdate(insertString);
+			System.out.print(returnReservationID);
 			return returnReservationID;
 
 		} catch (SQLException e) {
@@ -116,6 +119,9 @@ public class DataAccess {
 			System.err.println(e.fillInStackTrace());
 			return -1;
 		}
+
+		// inser booking
+
 	}
 
 	public static boolean updateReservationData() {
@@ -135,36 +141,6 @@ public class DataAccess {
 		return true;
 	}
 
-	/*
-	 * public static List<Reservations> selectReservationsData() {
-	 * List<Reservations> roomList = new ArrayList(); String sqlQueryString =
-	 * "SELECT RoomID, RoomNumber, BasePrice, RoomType FROM Room";
-	 * 
-	 * ResultSet resultSet = null; Statement statement = null;
-	 * 
-	 * try { dbConnection = DriverManager.getConnection(DataAccess.CONN_STRING);
-	 * 
-	 * statement = dbConnection.createStatement(); resultSet =
-	 * statement.executeQuery(sqlQueryString);
-	 * 
-	 * while (resultSet.next()) {
-	 * 
-	 * // new instance of guest and populate it from the Database Rooms resultRoom =
-	 * new Rooms();
-	 * resultRoom.setRoomID(Integer.parseInt(resultSet.getString("RoomID")));
-	 * resultRoom.setRoomNum(resultSet.getString("RoomNumber"));
-	 * resultRoom.setRoom_type(resultSet.getString("RoomType"));
-	 * resultRoom.setBasePrice(Double.parseDouble(resultSet.getString("BasePrice")))
-	 * ;
-	 * 
-	 * // add that to the Set reternGuestsSet roomList.add(resultRoom);
-	 * 
-	 * // this.dbConnection.close(); } } catch (SQLException ex) {
-	 * System.err.println(ex.getMessage());
-	 * System.err.println(ex.fillInStackTrace()); }
-	 * 
-	 * return roomList; }
-	 */
 /////////////////////////////////// End Reservations methods
 /////////////////////////////////// Guests related methods	
 	public static Guests insertGuestData(Guests addGuest) {
@@ -296,34 +272,6 @@ public class DataAccess {
 		return returnGuestList;
 	}
 
-	/*
-	 * public List<Guests> selectGuests2() {
-	 * 
-	 * ResultSet resultSet = null; Statement statement = null; List<Guests>
-	 * reternGuestsSet = new ArrayList<Guests>();
-	 * 
-	 * try { this.dbConnection =
-	 * DriverManager.getConnection(DataAccess.CONN_STRING);
-	 * 
-	 * statement = this.dbConnection.createStatement(); resultSet =
-	 * statement.executeQuery("SELECT * FROM Guest");
-	 * 
-	 * while (resultSet.next()) {
-	 * 
-	 * // new instance of guest and populate it from the Database Guests resultGuest
-	 * = new Guests(); resultGuest.setGuestId(resultSet.getString("GuestID"));
-	 * resultGuest.setEmail(resultSet.getString("Email"));
-	 * resultGuest.setFirstName(resultSet.getString("FirstName"));
-	 * resultGuest.setLastName(resultSet.getString("LastName"));
-	 * 
-	 * // add that to the Set reternGuestsSet reternGuestsSet.add(resultGuest);
-	 * 
-	 * // this.dbConnection.close(); } } // If error happens catch (SQLException e)
-	 * { System.out.println(e.getMessage() + "!!!"); System.exit(0); }
-	 * 
-	 * // Return the Set of Guests to main return reternGuestsSet; }
-	 */
-
 	public List<Guests> selectGuestsData(int upperlimit) {
 		List<Guests> returnGuestsSet = new ArrayList<Guests>();
 		DataAccess.connect();
@@ -426,10 +374,9 @@ public class DataAccess {
 	}
 
 	public static int getRoomByRoomNumber(String roomNumber) {
-		
+
 		int roomId = 0;
-		String sqlQueryString = "SELECT RoomID FROM Room WHERE RoomNumber = '"
-				+ roomNumber + "'";
+		String sqlQueryString = "SELECT RoomID FROM Room WHERE RoomNumber = '" + roomNumber + "'";
 
 		ResultSet resultSet = null;
 		Statement statement = null;
@@ -442,16 +389,15 @@ public class DataAccess {
 
 			roomId = Integer.parseInt(resultSet.getString("RoomID"));
 
-				// this.dbConnection.close();
-			}
-catch (SQLException ex) {
+			// this.dbConnection.close();
+		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 			System.err.println(ex.fillInStackTrace());
 		}
 
 		return roomId;
 	}
-	
+
 	public static List<Rooms> selectRoomsByTypeData(String roomType) {
 		{
 			List<Rooms> roomList = new ArrayList();
@@ -492,6 +438,68 @@ catch (SQLException ex) {
 	}
 ////////////////////////////////End Rooms related methods	
 
+////////////////////////////////Bookings methods
+
+	public Bookings addBooking(Bookings booking) {
+
+		Bookings insertBookings = booking;
+		ResultSet resultSet = null;
+		Statement statement = null;
+
+		dbConnection = connect();
+
+		String insertString = "INSERT INTO Booking (RoomID,BookedDate, ReservationID) VALUES"
+				+ insertBookings.getRoomId() + ", " + insertBookings.getBookingDate() + ", "
+				+ insertBookings.getReservationId() + ")";
+
+		try {
+			statement = dbConnection.createStatement();
+			int x = statement.executeUpdate(insertString);
+			System.out.print(x);
+			return insertBookings;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println(e.fillInStackTrace());
+			return null;
+		}
+
+	}
+
+	public static boolean checkBooking(String _bookDate, String _roomType, int _numOfDays) {
+		String bookDate = _bookDate;
+		String roomType = _roomType;
+		int numOfDays = _numOfDays;
+		ResultSet resultSet = null;
+		Statement statement = null;
+		String returnString = "";
+		int bookedCount = 0;
+
+		try {
+
+			dbConnection = connect();
+			statement = dbConnection.createStatement();
+			for (int i = 0; i < numOfDays; i++) {
+				returnString = "SELECT Count(*) AS BookingCount FROM "
+						+ "Booking INNER JOIN Room ON Booking.RoomID = Room.RoomID " + "WHERE (RoomType = '" + roomType
+						+ "')";
+
+				resultSet = statement.executeQuery(returnString);
+
+				if (resultSet.next() == true) { // amatch was found (it's booked)
+					return false;
+				}
+
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println(e.fillInStackTrace());
+			System.exit(0);
+		}
+		return true;
+	}
+//////////////////////////////// EndBookings methods
+
 	public static void main(String[] args) throws SQLException {
 
 		Scanner keyboardInput = new Scanner(System.in);
@@ -499,15 +507,15 @@ catch (SQLException ex) {
 		Guests guest = new Guests();
 
 		System.out.println(getRoomByRoomNumber("202"));
-		
+
 		List<Rooms> rooms1 = new ArrayList();
-		rooms1  = selectRoomsByTypeData("Single");
-		
+		rooms1 = selectRoomsByTypeData("Single");
+
 		// remove this
-		for(Rooms printRoom : rooms1) {
+		for (Rooms printRoom : rooms1) {
 			System.out.println(printRoom.toString());
 		}
-		
+
 		/*
 		 * System.out.println("-------------------------------------------------------")
 		 * ;
@@ -517,11 +525,11 @@ catch (SQLException ex) {
 		 * ; System.out.println("???"); keyboardInput.nextLine();
 		 */
 
-		//guest = selectGuestData("Cras@aultricies.net");
-		//System.out.println(guest.toString());
+		// guest = selectGuestData("Cras@aultricies.net");
+		// System.out.println(guest.toString());
 
 		// deleteGuestData("Cras@aultricies.net");
-		//System.out.println("OK");
+		// System.out.println("OK");
 		/*
 		 * res.setGuestId(1); res.setDaysStay(5);
 		 * 
